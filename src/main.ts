@@ -5,6 +5,7 @@ type GlobalState = {
     slug: string
     label: string
     selected: boolean
+    requires?: string[]
     options: Record<string, {
       netPrice: {
         year: number
@@ -85,7 +86,10 @@ function getCoverPrice(slug: string, installment = getSelectedInstallment()) {
   const cover = window.state.covers[slug];
   const discount = slug === 'rca' ? getRcaDiscount() : 0
   const coverOptions = getSelectedOptions(slug)
-  const basePrice = coverOptions.reduce((tot, option) => tot + cover?.options[option].netPrice[installment || 0], 0)
+  if (!coverOptions.length) {
+    coverOptions.push('default')
+  }
+  const basePrice = coverOptions.reduce((tot, option) => tot + cover?.options[option]?.netPrice[installment] || 0, 0)
   return basePrice - discount
 }
 
@@ -93,6 +97,16 @@ function getCoverDiscountOnRca(slug: string) {
   const cover = window.state.covers[slug];
   const selectedInstallment = getSelectedInstallment();
   return cover?.discountOnRca?.[selectedInstallment]
+}
+
+function getCoverRequiremets(slug: string) {
+  const cover = window.state.covers[slug];
+  return cover?.requires ?? []
+}
+
+function isSelected(slug: string) {
+  const selectedCovers = getAllSearchParams('selected-cover')
+  return selectedCovers.includes(slug)
 }
 
 let defaultInstallment = 'year'
@@ -173,16 +187,21 @@ customElements.define(
       this.renderOnQsChange()
 
       this.elements.addBtn?.addEventListener('click', () => {
-        if (this.isSelected()) {
+        if (isSelected(this.slug)) {
           delSearchParam('selected-cover', this.slug)
         } else {
           appendSearchParam('selected-cover', this.slug)
+          getCoverRequiremets(this.slug).forEach(slug => { 
+            if (!isSelected(slug)) {
+              appendSearchParam('selected-cover', slug)
+            }
+          })
         }
       })
 
       Array.from(this.querySelectorAll('select')).forEach(select => {
         this.setOption(select)
-        select.addEventListener('change', ev => {
+        select.addEventListener('change', () => {
           this.setOption(select)
         })
       })
@@ -192,11 +211,6 @@ customElements.define(
       if (select.dataset.slug) { // temp
         setSearchParam(`option-${this.slug}-${select.dataset.slug}`, select.value)
       }
-    }
-
-    isSelected() {
-      const selectedCovers = getAllSearchParams('selected-cover')
-      return selectedCovers.includes(this.slug)
     }
 
     render() {
@@ -209,7 +223,7 @@ customElements.define(
 
     updateRca() {
       if (this.elements.addBtn) {
-        if (this.isSelected()) {
+        if (isSelected(this.slug)) {
           this.setText('addBtn', 'Rimuovi')
           this.elements.addBtn.classList.remove('button--secondary')
           this.elements.addBtn.classList.add('button--ghost')
@@ -222,7 +236,7 @@ customElements.define(
     }
 
     updateDiscountBox() {
-      if (this.isSelected()) {
+      if (isSelected(this.slug)) {
         this.show('appliedDiscountBox')
         this.hide('discountBox')
       } else {
