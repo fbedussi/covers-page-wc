@@ -149,8 +149,8 @@
                             class="link ">set informativo</a>.</div>
                 </div>
                 <div data-test-id="cover-cards" class="display-grid gap-s">
-                    <cover-card class="sales-cover sales-cover--mandatory sales-cover--selected" id="rca"
-                        data-slug="rca" cs-override-id="rca" data-test-id="rca-cover-is-selected">
+                    <cover-card data-slug="rca" class="sales-cover sales-cover--mandatory sales-cover--selected" id="rca"
+                         cs-override-id="rca" data-test-id="rca-cover-is-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
                                 <div class="sales-cover__details__icon"><span class="icon icon--size-l c-brand"
@@ -179,18 +179,18 @@
                                         <div class="form-item select--cover">
                                             <div class="form-item__wrapper">
                                                 <div class="form-field form-field--with-custom-dropdown"><label
-                                                        class="form-field__wrapper"><select
+                                                        class="form-field__wrapper"><select data-slug="limit"
                                                             class="form-field__select form-field__select--with-no-pointer-events form-field__select--filled form-field__select--s"
                                                             name="rca_limit_select" id="id-rca_limit_select"
                                                             role="combobox" aria-controls="id-rca_limit_select-dropdown"
                                                             aria-haspopup="listbox" aria-expanded="false"
                                                             aria-activedescendant="" aria-invalid="false">
-                                                            <option hidden="" disabled=""></option>
-                                                            <option value="rca_limit_6_07">€ 6,45 mln / € 1,30 mln
+                                                            <option hidden=""></option>
+                                                            <option value="limit_6_07" selected>€ 6,45 mln / € 1,30 mln
                                                             </option>
-                                                            <option value="rca_limit_7">€ 7,00 mln / € 3,00 mln
+                                                            <option value="limit_7">€ 7,00 mln / € 3,00 mln
                                                             </option>
-                                                            <option value="rca_limit_10">€ 10,00 mln / € 5,00 mln
+                                                            <option value="limit_10">€ 10,00 mln / € 5,00 mln
                                                             </option>
                                                         </select>
                                                         <div class="form-field__addon"><span class="icon icon--size-s"
@@ -201,35 +201,6 @@
                                                                         d="M12 17c-.26 0-.51-.1-.71-.29L5 10.41c-.39-.39-.39-1.02 0-1.41h0c.39-.39 1.02-.39 1.41 0L12 14.59 17.59 9c.39-.39 1.02-.39 1.41 0h0c.39.39.39 1.02 0 1.41l-6.29 6.29c-.2.2-.45.3-.71.3z">
                                                                     </path>
                                                                 </svg></span></div>
-                                                        <div class="form-dropdown-wrapper form-dropdown-wrapper--s">
-                                                            <div class="form-dropdown form-dropdown--s"
-                                                                id="id-rca_limit_select-dropdown" role="listbox"
-                                                                aria-labelledby="id-rca_limit_select" tabindex="-1">
-                                                                <div class="form-dropdown__item form-dropdown__item--active"
-                                                                    id="€-6,45-mln-/-€-1,30-mln-0" role="option"
-                                                                    aria-selected="false" aria-posinset="1"
-                                                                    aria-setsize="3" tabindex="-1">€ 6,45 mln / €
-                                                                    1,30 mln<span
-                                                                        class="icon icon--size-l c-content-on-action-surface"
-                                                                        aria-hidden="true" data-name="check"><svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 24 24" width="24" height="24">
-                                                                            <path
-                                                                                d="M10 18c-.26 0-.51-.1-.71-.29L4 12.41c-.39-.39-.39-1.02 0-1.41h0c.39-.39 1.02-.39 1.41 0L10 15.59 19.59 6c.39-.39 1.02-.39 1.41 0h0c.39.39.39 1.02 0 1.41l-10.29 10.3c-.2.19-.45.29-.71.29z">
-                                                                            </path>
-                                                                        </svg></span></div>
-                                                                <div class="form-dropdown__item"
-                                                                    id="€-7,00-mln-/-€-3,00-mln-1" role="option"
-                                                                    aria-selected="false" aria-posinset="2"
-                                                                    aria-setsize="3" tabindex="-1">€ 7,00 mln / €
-                                                                    3,00 mln</div>
-                                                                <div class="form-dropdown__item"
-                                                                    id="€-10,00-mln-/-€-5,00-mln-2" role="option"
-                                                                    aria-selected="false" aria-posinset="3"
-                                                                    aria-setsize="3" tabindex="-1">€ 10,00 mln / €
-                                                                    5,00 mln</div>
-                                                            </div>
-                                                        </div>
                                                     </label></div>
                                             </div>
                                         </div>
@@ -299,13 +270,11 @@
                                                             class="form-field__select form-field__select--with-no-pointer-events form-field__select--filled form-field__select--s"
                                                             name="infortuni_conducente_limit_select"
                                                             id="id-infortuni_conducente_limit_select" role="combobox"
-                                                            aria-controls="id-infortuni_conducente_limit_select-dropdown"
-                                                            aria-haspopup="listbox" aria-expanded="false"
-                                                            aria-activedescendant="" aria-invalid="false">
-                                                            <option hidden="" disabled=""></option>
-                                                            <option value="infortuni_conducente_limit_5">Base, €
+                                                            data-slug="limit">
+                                                            <option value="limit_5" selected>Base,
+                                                                €
                                                                 50.000</option>
-                                                            <option value="infortuni_conducente_limit_10">Super, €
+                                                            <option value="limit_10">Super, €
                                                                 100.000</option>
                                                         </select>
                                                         <div class="form-field__addon"><span class="icon icon--size-s"
@@ -316,40 +285,13 @@
                                                                         d="M12 17c-.26 0-.51-.1-.71-.29L5 10.41c-.39-.39-.39-1.02 0-1.41h0c.39-.39 1.02-.39 1.41 0L12 14.59 17.59 9c.39-.39 1.02-.39 1.41 0h0c.39.39.39 1.02 0 1.41l-6.29 6.29c-.2.2-.45.3-.71.3z">
                                                                     </path>
                                                                 </svg></span></div>
-                                                        <div class="form-dropdown-wrapper form-dropdown-wrapper--s">
-                                                            <div class="form-dropdown form-dropdown--s"
-                                                                id="id-infortuni_conducente_limit_select-dropdown"
-                                                                role="listbox"
-                                                                aria-labelledby="id-infortuni_conducente_limit_select"
-                                                                tabindex="-1">
-                                                                <div class="form-dropdown__item form-dropdown__item--active"
-                                                                    id="base,-€-50.000-0" role="option"
-                                                                    aria-selected="false" aria-posinset="1"
-                                                                    aria-setsize="2" tabindex="-1">Base, €
-                                                                    50.000<span
-                                                                        class="icon icon--size-l c-content-on-action-surface"
-                                                                        aria-hidden="true" data-name="check"><svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 24 24" width="24" height="24">
-                                                                            <path
-                                                                                d="M10 18c-.26 0-.51-.1-.71-.29L4 12.41c-.39-.39-.39-1.02 0-1.41h0c.39-.39 1.02-.39 1.41 0L10 15.59 19.59 6c.39-.39 1.02-.39 1.41 0h0c.39.39.39 1.02 0 1.41l-10.29 10.3c-.2.19-.45.29-.71.29z">
-                                                                            </path>
-                                                                        </svg></span></div>
-                                                                <div class="form-dropdown__item" id="super,-€-100.000-1"
-                                                                    role="option" aria-selected="false"
-                                                                    aria-posinset="2" aria-setsize="2" tabindex="-1">
-                                                                    Super, € 100.000
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </label></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div data-test-id="deductible_select-wrapper">
-                                        <p class="text-m-book   " data-test-id="deductible-option-label">Franchigia
-                                        </p>
-                                        <p class="text-s-book    c-content-weak">
+                                        <p class="text-m-book" data-test-id="deductible-option-label">Franchigia</p>
+                                        <p class="text-s-book c-content-weak">
                                         <div>3% in caso di invalidità permanente.</div>
                                         </p>
                                     </div>
@@ -386,7 +328,7 @@
                                                 <div class="sales-cover__discount__details_line"><span
                                                         class="sales-cover__discount__amount"><span
                                                             data-id="rcaDiscount">45,00</span> €</span><span
-                                                        class="sales-cover__discount__detail"> all'anno sulla RC</span>
+                                                        class="sales-cover__discount__detail"> <span data-id="discountInstallmentLabel">all'anno</span> sulla RC</span>
                                                 </div>
                                                 </p>
                                             </div>
@@ -419,7 +361,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover sales-cover--badge" id="assistenza_stradale"
+                    <cover-card data-slug="assistenza_stradale" class="sales-cover sales-cover--badge" id="assistenza_stradale"
                         cs-override-id="assistenza_stradale" data-test-id="assistenza_stradale-cover-not-selected">
                         <span class="badge badge--brand badge--strong badge--ribbon sales-cover__badge">La più
                             venduta*</span>
@@ -542,7 +484,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="furto_incendio" cs-override-id="furto_incendio"
+                    <cover-card data-slug="furto_incendio" class="sales-cover" id="furto_incendio" cs-override-id="furto_incendio"
                         data-test-id="furto_incendio-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -648,7 +590,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="tutela_legale" cs-override-id="tutela_legale"
+                    <cover-card data-slug="tutela_legale" class="sales-cover" id="tutela_legale" cs-override-id="tutela_legale"
                         data-test-id="tutela_legale-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -753,7 +695,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="protezione_rivalse" cs-override-id="protezione_rivalse"
+                    <cover-card data-slug="protezione_rivalse" class="sales-cover" id="protezione_rivalse" cs-override-id="protezione_rivalse"
                         data-test-id="protezione_rivalse-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -806,7 +748,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="bonus_protetto" cs-override-id="bonus_protetto"
+                    <cover-card data-slug="bonus_protetto" class="sales-cover" id="bonus_protetto" cs-override-id="bonus_protetto"
                         data-test-id="bonus_protetto-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -854,7 +796,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="cristalli" cs-override-id="cristalli"
+                    <cover-card data-slug="cristalli" class="sales-cover" id="cristalli" cs-override-id="cristalli"
                         data-test-id="cristalli-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -912,7 +854,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="eventi_naturali" cs-override-id="eventi_naturali"
+                    <cover-card data-slug="eventi_naturali" class="sales-cover" id="eventi_naturali" cs-override-id="eventi_naturali"
                         data-test-id="eventi_naturali-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -970,7 +912,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="eventi_sociopolitici" cs-override-id="eventi_sociopolitici"
+                    <cover-card data-slug="eventi_sociopolitici" class="sales-cover" id="eventi_sociopolitici" cs-override-id="eventi_sociopolitici"
                         data-test-id="eventi_sociopolitici-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -1031,7 +973,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="collisione" cs-override-id="collisione"
+                    <cover-card data-slug="collisione" class="sales-cover" id="collisione" cs-override-id="collisione"
                         data-test-id="collisione-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -1086,7 +1028,7 @@
                             </div>
                         </div>
                     </cover-card>
-                    <cover-card class="sales-cover" id="kasko" cs-override-id="kasko"
+                    <cover-card data-slug="kasko" class="sales-cover" id="kasko" cs-override-id="kasko"
                         data-test-id="kasko-cover-not-selected">
                         <div class="sales-cover__content-center">
                             <div class="sales-cover__content-details">
@@ -1227,9 +1169,10 @@
                                     rate</div>
                                 <div class="cart-sidebar__total-price-info">
                                     <p class="c-content-weak text-s-book">1ª rata da 53 giorni a 83,33 €, poi 11
-                                        rate da 47,17 €, per un totale di 602,20 €. <a class="link"
-                                            data-test-id="monthly-payment-info-cta" role="button" href="#">Scopri di
-                                            più</a>.</p>
+                                        rate da 47,17 €, per un totale di 602,20 €. <button class="link"
+                                            data-test-id="monthly-payment-info-cta" role="button"
+                                            popovertarget="monthly-payment-info-modal">Scopri di
+                                            più</button>.</p>
                                 </div>
                             </label>
                         </fieldset>
@@ -1906,37 +1849,99 @@
                     class="button  button--secondary  button--l">Modifica</a></div>
         </footer>
         </section>
+    </dialog>
 
-        <script>
-            window.state = {
-                covers: {
-                    rca: {
-                        label: "responsabilità civile",
-                        selected: true,
-                        mandatory: true,
-                        netPrice: {
-                            year: 471.69,
-                            month: 40.25
+    <dialog popover class="modal modal--s" id="monthly-payment-info-modal" role="dialog"
+        data-test-id="monthly-payment-info-modal" aria-labelledby="monthly-payment-info-modal-header-title"
+        aria-describedby="monthly-payment-info-modal-content" aria-modal="true">
+        <header class="modal__header">
+            <div class="modal__header__wrapper ">
+                <h2 class="modal__header__title" id="monthly-payment-info-modal-header-title">Frazionamento mensile
+                </h2>
+            </div>
+            <button popovertarget="monthly-payment-info-modal" popovertargetaction="close" type="button" class="button button--icon-only button--ghost  button--s" aria-label="Chiudi">
+                <span class="icon icon--size-m" aria-hidden="true" data-name="cross">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M20.0098 3.99001C19.6198 3.60001 18.9898 3.60001 18.5998 3.99001L11.9998 10.59L5.39977 3.99001C5.00977 3.60001 4.37977 3.60001 3.98977 3.99001C3.59977 4.38001 3.59977 5.01001 3.98977 5.40001L10.5898 12L3.98977 18.6C3.59977 18.99 3.59977 19.62 3.98977 20.01C4.37977 20.4 5.00977 20.4 5.39977 20.01L11.9998 13.41L18.5998 20.01C18.9898 20.4 19.6198 20.4 20.0098 20.01C20.3998 19.62 20.3998 18.99 20.0098 18.6L13.4098 12L20.0098 5.40001C20.3998 5.01001 20.3998 4.38001 20.0098 3.99001V3.99001Z">
+                        </path>
+                    </svg>
+                </span>
+            </button>
+        </header>
+        <div class="modal__content" id="monthly-payment-info-modal-content">
+            <p class="padding-b-l">Quando il frazionamento in 12 mesi è disponibile, la polizza prevede un aumento
+                rispetto al premio annuale. Trovi i dettagli sul preventivo e sul contratto di polizza.</p>
+            <p class="padding-b-l">Il costo delle 2 rate che ti verranno addebitate automaticamente sarà pari a
+                395,67 € ciascuna, per un totale di 791,34 €. </p>
+            <p class="padding-b-l">Il pagamento non può essere effettuato con bonifico bancario, Postepay o carte
+                prepagate.</p>
+        </div>
+        <footer class="modal__footer monthly-payment-info-modal-footer">
+            <div class="modal__footer__buttons">
+                <button popovertarget="monthly-payment-info-modal" popovertargetaction="close" type="button"
+                    class="button  button--primary button--full-width button--l">Ho capito</button>
+            </div>
+        </footer>
+    </dialog>
+
+    <script>
+        window.state = {
+            covers: {
+                rca: {
+                    label: "responsabilità civile",
+                    selected: true,
+                    mandatory: true,
+                    options: {
+                        limit_6_07: {
+                            netPrice: {
+                                year: 471.69,
+                                month: 40.25
+                            }
+                        },
+                        limit_7: {
+                            netPrice: {
+                                year: 471.69,
+                                month: 40.25
+                            }
+                        },
+                        limit_10: {
+                            netPrice: {
+                                year: 471.69,
+                                month: 40.25
+                            }
+                        },
+                    }
+
+                },
+                infortuni_conducente: {
+                    label: "infortuni conducente",
+                    selected: false,
+                    mandatory: false,
+                    options: {
+                        limit_5: {
+                            netPrice: {
+                                year: 70,
+                                month: 40.25
+                            },
+                        },
+                        limit_10: {
+                            netPrice: {
+                                year: 95,
+                                month: 54.63
+                            },
                         }
                     },
-                    infortuni_conducente: {
-                        label: "infortuni conducente",
-                        selected: false,
-                        mandatory: false,
-                        netPrice: {
-                            year: 70,
-                            month: 40.25
-                        },
-                        discountOnRca: {
-                            year: 45,
-                            month: 25.87,
-                        }
+                    discountOnRca: {
+                        year: 45,
+                        month: 25.87,
                     }
                 }
             }
-        </script>
+        }
+    </script>
 
-        <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>

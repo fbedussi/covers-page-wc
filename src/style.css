@@ -5425,10 +5425,6 @@ td {
   padding-right: 2.125rem;
 }
 
-.form-field__select--with-no-pointer-events {
-  pointer-events: none;
-}
-
 .form-field__text {
   font-weight: var(--font-weight-book);
   font-size: var(--text-size-l-bp-base);

@@ -5,10 +5,12 @@ type GlobalState = {
     slug: string
     label: string
     selected: boolean
-    netPrice: {
-      year: number
-      month: number
-    }
+    options: Record<string, {
+      netPrice: {
+        year: number
+        month: number
+      }
+    }>
     discountOnRca?: {
       year: number
       month: number
@@ -72,17 +74,25 @@ function formatMoney(amount: number) {
   return amount.toFixed(2).replace('.', ',')
 }
 
-function getCoverPrice(slug: string) {
+function getSelectedOptions(coverSlug: string) {
+  const qs = new URLSearchParams(window.location.search)
+  const coverOptionsKey = Array.from(qs.keys()).filter(key => key.includes(`option-${coverSlug}`))
+
+  return coverOptionsKey.map(key => qs.get(key) || '').filter(Boolean)
+}
+
+function getCoverPrice(slug: string, installment = getSelectedInstallment()) {
   const cover = window.state.covers[slug];
-  const selectedInstallment = getSelectedInstallment();
   const discount = slug === 'rca' ? getRcaDiscount() : 0
-  return cover.netPrice[selectedInstallment] - discount
+  const coverOptions = getSelectedOptions(slug)
+  const basePrice = coverOptions.reduce((tot, option) => tot + cover?.options[option].netPrice[installment || 0], 0)
+  return basePrice - discount
 }
 
 function getCoverDiscountOnRca(slug: string) {
   const cover = window.state.covers[slug];
   const selectedInstallment = getSelectedInstallment();
-  return cover.discountOnRca?.[selectedInstallment]
+  return cover?.discountOnRca?.[selectedInstallment]
 }
 
 let defaultInstallment = 'year'
@@ -113,9 +123,9 @@ class Component extends HTMLElement {
     }, {} as Record<string, HTMLElement>)
   }
 
-  renderOnQsChange(keys: string[]) {
+  renderOnQsChange(keys?: string[]) {
     this.on('qs-updated', (ev) => {
-      if (keys.includes(ev.detail.key)) {
+      if (keys?.includes(ev.detail.key) ?? true) {
         this.render()
       }
     })
@@ -160,7 +170,7 @@ customElements.define(
 
     connectedCallback() {
       this.render()
-      this.renderOnQsChange(['selected-cover', 'installment'])
+      this.renderOnQsChange()
 
       this.elements.addBtn?.addEventListener('click', () => {
         if (this.isSelected()) {
@@ -169,6 +179,19 @@ customElements.define(
           appendSearchParam('selected-cover', this.slug)
         }
       })
+
+      Array.from(this.querySelectorAll('select')).forEach(select => {
+        this.setOption(select)
+        select.addEventListener('change', ev => {
+          this.setOption(select)
+        })
+      })
+    }
+
+    setOption(select: HTMLSelectElement) {
+      if (select.dataset.slug) { // temp
+        setSearchParam(`option-${this.slug}-${select.dataset.slug}`, select.value)
+      }
     }
 
     isSelected() {
@@ -178,9 +201,9 @@ customElements.define(
 
     render() {
       this.updateRca()
-      
+
       this.setText('netPrice', formatMoney(getCoverPrice(this.slug)))
-      
+
       this.updateDiscountBox()
     }
 
@@ -211,6 +234,7 @@ customElements.define(
       if (coverDiscountOnRca) {
         this.setText('rcaDiscount', formatMoney(coverDiscountOnRca))
         this.setText('rcaDiscountApplied', formatMoney(coverDiscountOnRca))
+        this.setText('discountInstallmentLabel', getSelectedInstallment() === 'year' ? "all'anno" : 'al mese')
       }
     }
   }
@@ -232,21 +256,17 @@ customElements.define(
 
     connectedCallback() {
       this.render()
-      this.renderOnQsChange(['selected-cover', 'installment'])
+      this.renderOnQsChange()
     }
 
     render() {
-      const renderedCovers = new Set(Array.from(this.querySelectorAll(`[data-cover-slug]`)).map(el => (el as HTMLElement).dataset.coverSlug || '').filter(Boolean))
-      const selectedCovers = new Set(getAllSearchParams('selected-cover'))
-      const coversToRemove = renderedCovers.difference(selectedCovers)
-      coversToRemove.forEach(this.removeCover.bind(this))
+      const selectedCovers = new Set(['rca', ...getAllSearchParams('selected-cover')])
+      this.removeCovers()
       selectedCovers.forEach(this.addCover.bind(this))
     }
 
-    removeCover(slug: string) {
-      if (slug !== 'rca') {
-        this.querySelector(`[data-cover-slug="${slug}"]`)?.remove();
-      }
+    removeCovers() {
+      this.innerHTML = ''
     }
 
     addCover(slug: string) {
@@ -254,8 +274,7 @@ customElements.define(
       const cover = window.state.covers[slug];
       (template.querySelector('[data-id="cover-name"]')! as HTMLElement).innerText = cover.label;
 
-      const selectedInstallment = getSelectedInstallment();
-      (template.querySelector('[data-id="cover-price"]')! as HTMLElement).innerText = formatMoney(cover.netPrice[selectedInstallment]);
+      (template.querySelector('[data-id="cover-price"]')! as HTMLElement).innerText = formatMoney(getCoverPrice(slug));
       (template.children[0]! as HTMLElement).dataset.coverSlug = cover.slug;
       this.appendChild(template);
     }
@@ -274,7 +293,7 @@ customElements.define(
 
     connectedCallback() {
       this.render()
-      this.renderOnQsChange(['selected-cover'])
+      this.renderOnQsChange()
 
       this.elements.yearRadio?.addEventListener('click', () => {
         setSearchParam('installment', 'year')
@@ -290,7 +309,10 @@ customElements.define(
       this.elements.monthRadio.querySelector('input')!.checked = selectedInstallment === 'month'
 
       const selectedCovers = [...(new Set(['rca', ...getAllSearchParams('selected-cover')]))]
-      const [netTotalYearly, netTotalMonthly] = selectedCovers.reduce(([netTotalYearly, netTotalMonthly], slug) => [netTotalYearly + window.state.covers[slug].netPrice.year, netTotalMonthly + window.state.covers[slug].netPrice.month], [0, 0])
+      const [netTotalYearly, netTotalMonthly] =
+        selectedCovers.reduce(([netTotalYearly, netTotalMonthly], slug) =>
+          [netTotalYearly + getCoverPrice(slug, 'year'), netTotalMonthly + getCoverPrice(slug, 'month')],
+          [0, 0])
       this.setText('netPriceMonthly', formatMoney(netTotalMonthly))
       this.setText('netPriceYearly', formatMoney(netTotalYearly))
     }
